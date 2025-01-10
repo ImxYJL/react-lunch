@@ -11,6 +11,7 @@ interface DropdownProps<T extends string> {
   ariaLabel?: string;
   dropdownItemList: DropdownItem<T>[];
   handleItemClick: (selectedValue: T) => void;
+  defaultItem?: string;
 }
 
 const Dropdown = <T extends string>({
@@ -18,6 +19,7 @@ const Dropdown = <T extends string>({
   id,
   ariaLabel,
   dropdownItemList,
+  defaultItem,
   handleItemClick,
 }: DropdownProps<T>) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,6 +33,11 @@ const Dropdown = <T extends string>({
       aria-label={ariaLabel}
       onChange={handleChange}
     >
+      {defaultItem !== undefined && (
+        <option value="" disabled selected>
+          {defaultItem}
+        </option>
+      )}
       {dropdownItemList.map((item) => (
         <S.DropdownItem key={item.id} value={item.value}>
           {item.value}
