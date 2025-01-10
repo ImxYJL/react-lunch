@@ -1,0 +1,16 @@
+import styled from "@emotion/styled";
+
+export const Dropdown = styled.select`
+  height: 44px;
+  min-width: 125px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 16px;
+`;
+
+export const DropdownItem = styled.option`
+
+`;
