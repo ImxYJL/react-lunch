@@ -3,15 +3,14 @@ import * as S from "./styles";
 import emptyStarImg from "../../assets/star-empty.png";
 import filledStarImg from "../../assets/star-filled.png";
 
-import { RestaurantItemType } from "./../../apis/restaurant";
-import { RESTAURANT_CATEGORY } from "../../constants/restaurant";
+import { RESTAURANT_CATEGORY_FILTER } from "../../constants/restaurant";
 import { RESTAURANT_CATEGORY_IMAGES } from "../../constants/img";
-
-export type KoreanRestaurantCategory = keyof typeof RESTAURANT_CATEGORY;
+import {
+  RestaurantItemType,
+  KoreanRestaurantCategory,
+} from "../types/restaurant";
 
 type RestaurantItemProps = RestaurantItemType & { isFavorite: boolean };
-
-type RestaurantImageCategory = Exclude<KoreanRestaurantCategory, "전체">;
 
 const RestaurantItem = ({
   id,
@@ -21,17 +20,17 @@ const RestaurantItem = ({
   isFavorite,
   description,
 }: RestaurantItemProps) => {
-  const getLogoImg = (category: RestaurantImageCategory) => {
-    const engCategory = RESTAURANT_CATEGORY[category];
+  const getLogoImg = (category: KoreanRestaurantCategory) => {
+    const engCategory = RESTAURANT_CATEGORY_FILTER[category];
 
     return RESTAURANT_CATEGORY_IMAGES[engCategory];
   };
 
   return (
-    <S.RestaurantItem id={id}>
+    <S.RestaurantItem id={id} data-id={id}>
       <S.RestaurantLogoSection>
         <img
-          src={getLogoImg(category as RestaurantImageCategory)} // TODO: as 제거
+          src={getLogoImg(category as KoreanRestaurantCategory)} // TODO: as 제거
           alt={category}
         />
       </S.RestaurantLogoSection>

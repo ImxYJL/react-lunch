@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
-import {
-  getRestaurantList,
-  RestaurantListResponse,
-} from "../../apis/restaurant";
-import RestaurantItem, { KoreanRestaurantCategory } from "../RestaurantItem";
+
+import RestaurantItem from "../RestaurantItem";
 import { SortType } from "../SortTypeDropdown";
-
-const fetchRestaurantList = async () => {
-  const result = await getRestaurantList();
-
-  return result;
-};
+import {
+  KoreanRestaurantCategoryFilter,
+  RestaurantItemType,
+} from "../types/restaurant";
+import useGetRestaurantList from "../../hooks/useGetRestaurantList";
+import RestaurantDetailModal from "../RestaurantDetailModal";
 
 interface RestaurantListProps {
-  selectedCategory: KoreanRestaurantCategory;
+  selectedCategory: KoreanRestaurantCategoryFilter;
   selectedSortType: SortType;
 }
 
@@ -21,29 +18,37 @@ const RestaurantList = ({
   selectedCategory,
   selectedSortType,
 }: RestaurantListProps) => {
-  const [restaurantList, setRestaurantList] =
-    useState<RestaurantListResponse | null>(null);
+  const { data: restaurantList } = useGetRestaurantList();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchRestaurantList();
-        setRestaurantList(data); // 상태 업데이트
-      } catch (error) {
-        console.error("데이터 가져오기 실패:", error);
-      }
-    };
+  const [selectedRestaurant, setSelectedRestaurant] =
+    useState<RestaurantItemType | null>(null);
 
-    fetchData();
-  }, []);
+  const closeModal = () => {
+    setSelectedRestaurant(null);
+  };
 
-  useEffect(() => {
-    console.log(selectedCategory);
-    console.log(selectedSortType);
-  }, [selectedCategory, selectedSortType]);
+  const handleItemClick = (event: React.MouseEvent<HTMLUListElement>) => {
+    const listItem = (event.target as HTMLElement).closest("li");
+    if (!listItem) return;
+    console.log("hi");
+
+    // dataset에서 id를 추출하여 클릭된 아이템을 식별
+    const id = listItem.dataset.id;
+    const selectedItem = restaurantList?.find((item) => item.id === id);
+
+    // 모달 열기
+    if (selectedItem) {
+      setSelectedRestaurant(selectedItem);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log(selectedCategory);
+  //   console.log(selectedSortType);
+  // }, [selectedCategory, selectedSortType]);
 
   return (
-    <ul>
+    <ul onClick={handleItemClick}>
       {restaurantList?.map((item) => (
         <RestaurantItem
           key={item.id}
@@ -52,9 +57,15 @@ const RestaurantList = ({
           distance={item.distance}
           category={item.category}
           description={item.description}
-          isFavorite={false}
+          isFavorite={item.isFavorite}
         />
       ))}
+      {selectedRestaurant && (
+        <RestaurantDetailModal
+          restaurant={selectedRestaurant}
+          closeModal={closeModal}
+        />
+      )}
     </ul>
   );
 };
