@@ -1,11 +1,12 @@
 import * as S from "./styles";
 import RestaurantFilter from "../RestaurantFilter";
-import { KoreanRestaurantCategory } from "../RestaurantItem";
+
 import SortTypeDropdown, { SortType } from "../SortTypeDropdown";
+import { KoreanRestaurantCategoryFilter } from "../types/restaurant";
 
 interface FilterSectionProps {
   setSelectedCategory: React.Dispatch<
-    React.SetStateAction<KoreanRestaurantCategory>
+    React.SetStateAction<KoreanRestaurantCategoryFilter>
   >;
   setSelectedSortType: React.Dispatch<React.SetStateAction<SortType>>;
 }

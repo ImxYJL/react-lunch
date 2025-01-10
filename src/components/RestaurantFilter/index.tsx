@@ -1,22 +1,16 @@
-import Dropdown, { DropdownItem } from "../common/Dropdown";
+import Dropdown from "../common/Dropdown";
+import { KoreanRestaurantCategoryFilter } from "../types/restaurant";
 
-import { KoreanRestaurantCategory } from "../RestaurantItem";
-import { RESTAURANT_CATEGORY } from "./../../constants/restaurant";
+import { RESTAURANT_CATEGORY_FILTER_DROPDOWN_ITEMS } from "./../../constants/restaurant";
 
 interface RestaurantFilterProps {
   setSelectedCategory: React.Dispatch<
-    React.SetStateAction<KoreanRestaurantCategory>
+    React.SetStateAction<KoreanRestaurantCategoryFilter>
   >;
 }
 
 const RestaurantFilter = ({ setSelectedCategory }: RestaurantFilterProps) => {
-  const dropdownItems: DropdownItem<KoreanRestaurantCategory>[] =
-    Object.entries(RESTAURANT_CATEGORY).map(([key, value]) => ({
-      id: value,
-      value: key as KoreanRestaurantCategory,
-    }));
-
-  const handleRestaurantItemClick = (value: KoreanRestaurantCategory) => {
+  const handleRestaurantItemClick = (value: KoreanRestaurantCategoryFilter) => {
     setSelectedCategory(value);
   };
 
@@ -24,7 +18,7 @@ const RestaurantFilter = ({ setSelectedCategory }: RestaurantFilterProps) => {
     <Dropdown
       name="restaurant-category"
       id="restaurant-filter"
-      dropdownItemList={dropdownItems}
+      dropdownItemList={RESTAURANT_CATEGORY_FILTER_DROPDOWN_ITEMS}
       handleItemClick={handleRestaurantItemClick}
       ariaLabel="음식 종류 필터링"
     />
