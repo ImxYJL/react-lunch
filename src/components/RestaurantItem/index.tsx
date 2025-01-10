@@ -7,9 +7,11 @@ import { RestaurantItemType } from "./../../apis/restaurant";
 import { RESTAURANT_CATEGORY } from "../../constants/restaurant";
 import { RESTAURANT_CATEGORY_IMAGES } from "../../constants/img";
 
-type KoreanRestaurantCategory = keyof typeof RESTAURANT_CATEGORY;
+export type KoreanRestaurantCategory = keyof typeof RESTAURANT_CATEGORY;
 
 type RestaurantItemProps = RestaurantItemType & { isFavorite: boolean };
+
+type RestaurantImageCategory = Exclude<KoreanRestaurantCategory, "전체">;
 
 const RestaurantItem = ({
   id,
@@ -19,7 +21,7 @@ const RestaurantItem = ({
   isFavorite,
   description,
 }: RestaurantItemProps) => {
-  const getLogoImg = (category: KoreanRestaurantCategory) => {
+  const getLogoImg = (category: RestaurantImageCategory) => {
     const engCategory = RESTAURANT_CATEGORY[category];
 
     return RESTAURANT_CATEGORY_IMAGES[engCategory];
@@ -29,7 +31,7 @@ const RestaurantItem = ({
     <S.RestaurantItem id={id}>
       <S.RestaurantLogoSection>
         <img
-          src={getLogoImg(category as KoreanRestaurantCategory)} // TODO: as 제거
+          src={getLogoImg(category as RestaurantImageCategory)} // TODO: as 제거
           alt={category}
         />
       </S.RestaurantLogoSection>
@@ -38,9 +40,6 @@ const RestaurantItem = ({
           style={{
             display: "flex",
             justifyContent: "space-between",
-
-            // width: '100%',
-            // gap: "10px",
           }}
         >
           <div>

@@ -7,7 +7,10 @@ import etcImage from "../assets/category-etc.png";
 import { RESTAURANT_CATEGORY } from "./restaurant";
 
 export const RESTAURANT_CATEGORY_IMAGES: Record<
-  (typeof RESTAURANT_CATEGORY)[keyof typeof RESTAURANT_CATEGORY],
+  Exclude<
+    (typeof RESTAURANT_CATEGORY)[keyof typeof RESTAURANT_CATEGORY],
+    "all"
+  >,
   string
 > = {
   korean: koreanImage,

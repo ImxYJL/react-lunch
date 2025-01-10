@@ -3,7 +3,8 @@ import {
   getRestaurantList,
   RestaurantListResponse,
 } from "../../apis/restaurant";
-import RestaurantItem from "../RestaurantItem";
+import RestaurantItem, { KoreanRestaurantCategory } from "../RestaurantItem";
+import { SortType } from "../SortTypeDropdown";
 
 const fetchRestaurantList = async () => {
   const result = await getRestaurantList();
@@ -11,7 +12,15 @@ const fetchRestaurantList = async () => {
   return result;
 };
 
-const RestaurantList = () => {
+interface RestaurantListProps {
+  selectedCategory: KoreanRestaurantCategory;
+  selectedSortType: SortType;
+}
+
+const RestaurantList = ({
+  selectedCategory,
+  selectedSortType,
+}: RestaurantListProps) => {
   const [restaurantList, setRestaurantList] =
     useState<RestaurantListResponse | null>(null);
 
@@ -27,6 +36,11 @@ const RestaurantList = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log(selectedCategory);
+    console.log(selectedSortType);
+  }, [selectedCategory, selectedSortType]);
 
   return (
     <ul>
