@@ -3,14 +3,20 @@ import { useState } from "react";
 import Header from "./components/Header";
 import RestaurantList from "./components/RestaurantList.tsx";
 import TabSection from "./components/TabSection/index.tsx";
-import { KoreanRestaurantCategory } from "./components/RestaurantItem/index.tsx";
+
 import { SortType } from "./components/SortTypeDropdown/index.tsx";
+import { KoreanRestaurantCategoryFilter } from "./components/types/restaurant.ts";
+import AddRestaurantModal from "./components/AddRestaurantModal/index.tsx";
 
 function App() {
   const [isFavoriteTab, setIsFavoriteTab] = useState(false);
   const [selectedCategory, setSelectedCategory] =
-    useState<KoreanRestaurantCategory>("전체");
+    useState<KoreanRestaurantCategoryFilter>("전체");
   const [selectedSortType, setSelectedSortType] = useState<SortType>("이름순");
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const openAddModal = () => setIsAddModalOpen(true);
+  const closeAddModal = () => setIsAddModalOpen(false);
 
   const handleTabClick = () => {
     setIsFavoriteTab(!isFavoriteTab);
@@ -18,7 +24,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header openAddModal={openAddModal} />
       <main>
         <TabSection
           isFavoriteTab={isFavoriteTab}
@@ -33,10 +39,8 @@ function App() {
           selectedSortType={selectedSortType}
         />
       </main>
-      <aside>
-        {/* <RestaurantDetailModal />
-        <AddRestaurantModal /> */}
-      </aside>
+
+      {isAddModalOpen && <AddRestaurantModal closeModal={closeAddModal} />}
     </>
   );
 }
