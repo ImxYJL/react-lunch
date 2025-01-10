@@ -4,11 +4,11 @@ import westernImage from "../assets/category-western.png";
 import japaneseImage from "../assets/category-japanese.png";
 import asianImage from "../assets/category-asian.png";
 import etcImage from "../assets/category-etc.png";
-import { RESTAURANT_CATEGORY } from "./restaurant";
+import { RESTAURANT_CATEGORY_FILTER } from "./restaurant";
 
 export const RESTAURANT_CATEGORY_IMAGES: Record<
   Exclude<
-    (typeof RESTAURANT_CATEGORY)[keyof typeof RESTAURANT_CATEGORY],
+    (typeof RESTAURANT_CATEGORY_FILTER)[keyof typeof RESTAURANT_CATEGORY_FILTER],
     "all"
   >,
   string
