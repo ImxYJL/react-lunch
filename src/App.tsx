@@ -23,7 +23,13 @@ function App() {
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <Header openAddModal={openAddModal} />
       <main>
         <TabSection
@@ -41,7 +47,7 @@ function App() {
       </main>
 
       {isAddModalOpen && <AddRestaurantModal closeModal={closeAddModal} />}
-    </>
+    </div>
   );
 }
 

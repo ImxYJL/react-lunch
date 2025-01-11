@@ -27,6 +27,7 @@ enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
+        {/* <Global styles={globalStyles(theme)} /> */}
         <ThemeProvider theme={theme}>
           <App />
         </ThemeProvider>

@@ -44,23 +44,34 @@ const RestaurantDetailModal = ({
     <Portal>
       <ModalBackground closeModal={closeModal}>
         <S.ModalContainer>
-          <S.RestaurantLogoSection>
-            <img
-              src={getLogoImg(restaurant.category as KoreanRestaurantCategory)} // TODO: as 제거
-              alt=""
-            />
-          </S.RestaurantLogoSection>
-          <S.FavoriteButton type="button" aria-label="즐겨찾기 버튼">
-            <img
-              src={restaurant.isFavorite ? filledStarImg : emptyStarImg}
-              alt=""
-            />
-          </S.FavoriteButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              position: "relative",
+              marginBottom: "20px",
+            }}
+          >
+            <S.RestaurantLogoSection>
+              <img
+                src={getLogoImg(
+                  restaurant.category as KoreanRestaurantCategory
+                )} // TODO: as 제거
+                alt=""
+              />
+            </S.RestaurantLogoSection>
+            <S.FavoriteButton type="button" aria-label="즐겨찾기 버튼">
+              <img
+                src={restaurant.isFavorite ? filledStarImg : emptyStarImg}
+                alt=""
+              />
+            </S.FavoriteButton>
+          </div>
           <S.Name>{restaurant.name}</S.Name>
           <S.Distance>{restaurant.distance}</S.Distance>
           <S.Description>{restaurant.description}</S.Description>
           {restaurant.url && <S.Url>{restaurant.url}</S.Url>}
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ display: "flex", gap: "10px", marginTop: "30px" }}>
             <S.Button
               $isPrimary={false}
               onClick={() => handleItemDelete(restaurant.id)}

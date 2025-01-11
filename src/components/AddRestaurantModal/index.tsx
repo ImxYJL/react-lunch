@@ -96,7 +96,7 @@ const AddRestaurantModal = ({ closeModal }: AddRestaurantModalProps) => {
             />
           </S.FormSection>
           <S.FormSection>
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div style={{ display: "flex", gap: "10px", width: "100%" }}>
               <S.Button $isPrimary={false} onClick={closeModal} type="button">
                 취소하기
               </S.Button>

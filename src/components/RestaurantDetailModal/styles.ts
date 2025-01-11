@@ -4,19 +4,17 @@ export const ModalContainer = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
 
   position: fixed; /* 화면에 고정 */
   bottom: 0; /* 아래에 고정 */
   left: 0;
-  width: 100%; /* 가로 전체 */
+
   height: 60vh; /* 높이를 화면의 70%로 설정 */
   background-color: white; /* 모달 배경색 */
   border-radius: 16px 16px 0 0; /* 상단 모서리를 둥글게 */
   overflow-y: auto; /* 내용이 많을 경우 스크롤 */
   z-index: 1000; /* 다른 요소 위에 표시 */
-  padding: 16px; /* 내부 여백 */
+  padding: 16px 70px; /* 내부 여백 */
 `;
 
 export const RestaurantItem = styled.li`
@@ -62,7 +60,6 @@ export const FavoriteButton = styled.button`
 
   position: absolute;
   right: 0;
-  margin-right: 20px;
 `;
 
 export const Name = styled.h3`
@@ -85,14 +82,18 @@ export const Description = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-export const Url = styled.p``;
+export const Url = styled.p`
+  text-decoration: underline;
+`;
 
 export const Button = styled.button<{ $isPrimary: boolean }>`
-  padding: 8px 16px;
+  padding: 12px 16px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
+
+  width: 100%;
 
   background-color: ${({ $isPrimary, theme }) =>
     $isPrimary ? theme.colors.primary : "white"};

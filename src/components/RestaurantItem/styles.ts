@@ -5,6 +5,7 @@ export const RestaurantItem = styled.li`
   align-items: flex-start;
 
   padding: 16px 8px;
+  position: relative;
 
   border-bottom: 1px solid #e9eaed;
 `;
