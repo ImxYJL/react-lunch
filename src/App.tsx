@@ -10,9 +10,11 @@ import AddRestaurantModal from "./components/AddRestaurantModal/index.tsx";
 
 function App() {
   const [isFavoriteTab, setIsFavoriteTab] = useState(false);
+
   const [selectedCategory, setSelectedCategory] =
     useState<KoreanRestaurantCategoryFilter>("전체");
   const [selectedSortType, setSelectedSortType] = useState<SortType>("이름순");
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const openAddModal = () => setIsAddModalOpen(true);
@@ -41,6 +43,7 @@ function App() {
           setSelectedSortType={setSelectedSortType}
         />
         <RestaurantList
+          isFavoriteTab={isFavoriteTab}
           selectedCategory={selectedCategory}
           selectedSortType={selectedSortType}
         />

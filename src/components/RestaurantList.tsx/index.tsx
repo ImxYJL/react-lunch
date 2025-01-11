@@ -10,11 +10,13 @@ import useGetRestaurantList from "../../hooks/useGetRestaurantList";
 import RestaurantDetailModal from "../RestaurantDetailModal";
 
 interface RestaurantListProps {
+  isFavoriteTab: boolean;
   selectedCategory: KoreanRestaurantCategoryFilter;
   selectedSortType: SortType;
 }
 
 const RestaurantList = ({
+  isFavoriteTab,
   selectedCategory,
   selectedSortType,
 }: RestaurantListProps) => {
@@ -30,7 +32,6 @@ const RestaurantList = ({
   const handleItemClick = (event: React.MouseEvent<HTMLUListElement>) => {
     const listItem = (event.target as HTMLElement).closest("li");
     if (!listItem) return;
-    console.log("hi");
 
     // dataset에서 id를 추출하여 클릭된 아이템을 식별
     const id = listItem.dataset.id;
@@ -42,14 +43,30 @@ const RestaurantList = ({
     }
   };
 
-  // useEffect(() => {
-  //   console.log(selectedCategory);
-  //   console.log(selectedSortType);
-  // }, [selectedCategory, selectedSortType]);
+  const filteredList = restaurantList
+    ?.filter((item) => (isFavoriteTab ? item.isFavorite : true)) // 즐겨찾기
+    .filter(
+      (item) =>
+        selectedCategory === "전체" || item.category === selectedCategory
+    ) // 카테고리 필터
+    .sort((a, b) => {
+      if (selectedSortType === "거리순") {
+        // TODO: distance 데이터는 숫자/혹은 숫자 문자열만 받도록 수정하기
+        const aDistance = Number(a.distance.replace(/\D/g, ""));
+        const bDistance = Number(b.distance.replace(/\D/g, ""));
+
+        return aDistance - bDistance;
+      }
+      if (selectedSortType === "이름순") {
+        return a.name.localeCompare(b.name);
+      }
+
+      return 0;
+    });
 
   return (
     <ul onClick={handleItemClick}>
-      {restaurantList?.map((item) => (
+      {filteredList?.map((item) => (
         <RestaurantItem
           key={item.id}
           id={item.id}
