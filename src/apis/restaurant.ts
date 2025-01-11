@@ -43,3 +43,25 @@ export const deleteRestaurant = async (id: string) => {
     throw new Error("삭제 실패");
   }
 };
+
+export interface PatchIsFavoriteParams {
+  id: string;
+  isFavorite: boolean;
+}
+
+export const patchIsFavorite = async ({
+  id,
+  isFavorite,
+}: PatchIsFavoriteParams) => {
+  const response = await fetch(`${ENDPOINT}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ isFavorite }),
+  });
+
+  if (!response.ok) {
+    throw new Error("즐겨찾기 데이터 갱신 실패");
+  }
+};
