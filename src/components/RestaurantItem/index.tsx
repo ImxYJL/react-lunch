@@ -9,6 +9,7 @@ import {
   RestaurantItemType,
   KoreanRestaurantCategory,
 } from "../types/restaurant";
+import usePatchIsFavorite from "../../hooks/usePatchIsFavorite";
 
 type RestaurantItemProps = RestaurantItemType & { isFavorite: boolean };
 
@@ -24,6 +25,17 @@ const RestaurantItem = ({
     const engCategory = RESTAURANT_CATEGORY_FILTER[category];
 
     return RESTAURANT_CATEGORY_IMAGES[engCategory];
+  };
+
+  const { mutate } = usePatchIsFavorite();
+
+  const handleFavoriteButtonToggle = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.stopPropagation();
+
+    const newIsFavorite = !isFavorite;
+    mutate({ id, isFavorite: newIsFavorite });
   };
 
   return (
@@ -45,7 +57,11 @@ const RestaurantItem = ({
             <S.RestaurantName>{name}</S.RestaurantName>
             <S.RestaurantDistance>{distance}</S.RestaurantDistance>
           </div>
-          <S.FavoriteButton type="button" aria-label="즐겨찾기 버튼">
+          <S.FavoriteButton
+            type="button"
+            aria-label="즐겨찾기 버튼"
+            onClick={(e) => handleFavoriteButtonToggle(e)}
+          >
             <img src={isFavorite ? filledStarImg : emptyStarImg} alt="" />
           </S.FavoriteButton>
         </div>

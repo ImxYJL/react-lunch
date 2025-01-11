@@ -8,10 +8,13 @@ import {
 import { RESTAURANT_CATEGORY_FILTER } from "../../constants/restaurant.ts";
 import { RESTAURANT_CATEGORY_IMAGES } from "../../constants/img.ts";
 
+import { useQueryClient } from "@tanstack/react-query";
 import emptyStarImg from "../../assets/star-empty.png";
 import filledStarImg from "../../assets/star-filled.png";
 
 import useDeleteRestaurant from "../../hooks/useDeleteRestaurant.ts";
+import usePatchIsFavorite from "../../hooks/usePatchIsFavorite.ts";
+import { useState } from "react";
 
 interface RestaurantDetailModalProps {
   restaurant: RestaurantItemType | null;
@@ -22,7 +25,11 @@ const RestaurantDetailModal = ({
   restaurant,
   closeModal,
 }: RestaurantDetailModalProps) => {
-  const { mutate } = useDeleteRestaurant();
+  const [isFavorite, setIsFavorite] = useState(restaurant?.isFavorite || false);
+
+  const queryClient = useQueryClient();
+  const { mutate: deleteRestaurant } = useDeleteRestaurant();
+  const { mutate: patchIsFavorite } = usePatchIsFavorite();
 
   const getLogoImg = (category: KoreanRestaurantCategory) => {
     const engCategory = RESTAURANT_CATEGORY_FILTER[category];
@@ -30,9 +37,43 @@ const RestaurantDetailModal = ({
     return RESTAURANT_CATEGORY_IMAGES[engCategory];
   };
 
+  const handleFavoriteButtonToggle = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.stopPropagation();
+
+    if (restaurant) {
+      const newIsFavorite = !isFavorite;
+      setIsFavorite(newIsFavorite);
+
+      patchIsFavorite(
+        { id: restaurant.id, isFavorite: newIsFavorite },
+        {
+          onSuccess: () => {
+            queryClient.setQueryData(
+              ["restaurantList"],
+              (oldData: RestaurantItemType[] | undefined) => {
+                if (!oldData) return [];
+
+                return oldData.map((item) =>
+                  item.id === restaurant.id
+                    ? { ...item, isFavorite: newIsFavorite }
+                    : item
+                );
+              }
+            );
+          },
+          onError: () => {
+            setIsFavorite(restaurant.isFavorite);
+          },
+        }
+      );
+    }
+  };
+
   const handleItemDelete = (id: string) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      mutate(id, {
+      deleteRestaurant(id, {
         onSuccess: () => closeModal(),
       });
     }
@@ -60,11 +101,12 @@ const RestaurantDetailModal = ({
                 alt=""
               />
             </S.RestaurantLogoSection>
-            <S.FavoriteButton type="button" aria-label="즐겨찾기 버튼">
-              <img
-                src={restaurant.isFavorite ? filledStarImg : emptyStarImg}
-                alt=""
-              />
+            <S.FavoriteButton
+              type="button"
+              aria-label="즐겨찾기 버튼"
+              onClick={handleFavoriteButtonToggle}
+            >
+              <img src={isFavorite ? filledStarImg : emptyStarImg} alt="" />
             </S.FavoriteButton>
           </div>
           <S.Name>{restaurant.name}</S.Name>
