@@ -5,10 +5,13 @@ export const ModalContainer = styled.article`
   flex-direction: column;
   justify-content: center;
 
+  box-sizing: border-box;
+
   position: fixed; /* 화면에 고정 */
   bottom: 0; /* 아래에 고정 */
   left: 0;
 
+  width: 100%;
   height: 60vh; /* 높이를 화면의 70%로 설정 */
   background-color: white; /* 모달 배경색 */
   border-radius: 16px 16px 0 0; /* 상단 모서리를 둥글게 */
