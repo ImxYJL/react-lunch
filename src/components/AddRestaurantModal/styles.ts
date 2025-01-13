@@ -14,7 +14,7 @@ export const ModalContainer = styled.article`
   bottom: 0; /* 아래에 고정 */
   left: 0;
   width: 100%; /* 가로 전체 */
-  height: 90vh; /* 높이를 화면의 70%로 설정 */
+  height: 92vh; /* 높이를 화면의 70%로 설정 */
   background-color: white; /* 모달 배경색 */
   border-radius: 16px 16px 0 0; /* 상단 모서리를 둥글게 */
   overflow-y: auto; /* 내용이 많을 경우 스크롤 */
@@ -55,7 +55,10 @@ export const Textarea = styled.textarea`
   height: 65px;
 `;
 
-export const Info = styled.p``;
+export const Info = styled.p`
+  color: ${({ theme }) => theme.colors.grey300};
+  margin-top: 3px;
+`;
 
 export const Button = styled.button<{ $isPrimary: boolean }>`
   padding: 12px 16px;
