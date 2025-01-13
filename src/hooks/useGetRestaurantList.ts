@@ -4,7 +4,7 @@ import { getRestaurantList, RestaurantListResponse } from "../apis/restaurant";
 const useGetRestaurantList = () => {
   const result = useQuery<RestaurantListResponse>({
     queryKey: ["restaurantList"],
-    queryFn: () => getRestaurantList(),
+    queryFn: getRestaurantList,
     staleTime: 1 * 60 * 1000,
   });
 
