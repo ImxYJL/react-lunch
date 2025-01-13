@@ -1,11 +1,14 @@
 import * as S from "./styles";
 import addButtonSrc from "../../assets/add-button.png";
+import { useState } from "react";
+import AddRestaurantModal from "../AddRestaurantModal";
 
-interface HeaderProps {
-  openAddModal: () => void;
-}
+const Header = () => {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-const Header = ({ openAddModal }: HeaderProps) => {
+  const openAddModal = () => setIsAddModalOpen(true);
+  const closeAddModal = () => setIsAddModalOpen(false);
+
   return (
     <S.Gnb>
       <S.HeaderText>점심 뭐 먹지</S.HeaderText>
@@ -16,6 +19,7 @@ const Header = ({ openAddModal }: HeaderProps) => {
       >
         <img src={addButtonSrc} alt="" />
       </S.RestaurantAddButton>
+      {isAddModalOpen && <AddRestaurantModal closeModal={closeAddModal} />}
     </S.Gnb>
   );
 };
