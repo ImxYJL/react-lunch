@@ -11,8 +11,6 @@ import {
 } from "../types/restaurant";
 import usePatchIsFavorite from "../../hooks/usePatchIsFavorite";
 
-type RestaurantItemProps = RestaurantItemType & { isFavorite: boolean };
-
 const RestaurantItem = ({
   id,
   name,
@@ -20,7 +18,7 @@ const RestaurantItem = ({
   category,
   isFavorite,
   description,
-}: RestaurantItemProps) => {
+}: RestaurantItemType) => {
   const getLogoImg = (category: KoreanRestaurantCategorySelector) => {
     const engCategory = KIND_OF_FOOD[category];
 
