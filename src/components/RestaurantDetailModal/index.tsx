@@ -112,7 +112,9 @@ const RestaurantDetailModal = ({
           <S.Name>{restaurant.name}</S.Name>
           <S.Distance>{restaurant.distance}</S.Distance>
           <S.Description>{restaurant.description}</S.Description>
-          {restaurant.url && <S.Url>{restaurant.url}</S.Url>}
+          {restaurant.url && (
+            <S.Url href={restaurant.url}>{restaurant.url}</S.Url>
+          )}
           <div style={{ display: "flex", gap: "10px", marginTop: "30px" }}>
             <S.Button
               $isPrimary={false}

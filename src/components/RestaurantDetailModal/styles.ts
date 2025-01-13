@@ -85,8 +85,8 @@ export const Description = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-export const Url = styled.p`
-  text-decoration: underline;
+export const Url = styled.a`
+  color: black;
 `;
 
 export const Button = styled.button<{ $isPrimary: boolean }>`
