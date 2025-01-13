@@ -7,14 +7,14 @@ export interface RestaurantItemType {
   id: string;
   name: string;
   distance: string; // TODO: number로 변경
-  description: string;
   category: string;
   isFavorite: boolean;
+  description?: string;
   url?: string;
 }
 
-// 꼭 필요할까 싶긴 함 
-export type RestaurantListResponse = RestaurantItemType[]; 
+// 꼭 필요할까 싶긴 함
+export type RestaurantListResponse = RestaurantItemType[];
 
 // "전체"가 포함된 타입
 export type KoreanRestaurantCategoryFilter =

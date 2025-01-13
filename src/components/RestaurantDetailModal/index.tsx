@@ -96,7 +96,7 @@ const RestaurantDetailModal = ({
             <S.RestaurantLogoSection>
               <img
                 src={getLogoImg(
-                  restaurant.category as KoreanRestaurantCategory
+                  restaurant.category as KoreanRestaurantCategorySelector
                 )} // TODO: as 제거
                 alt=""
               />
