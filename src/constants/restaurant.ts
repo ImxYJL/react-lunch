@@ -4,7 +4,6 @@ import {
   KoreanRestaurantCategoryFilter,
 } from "../components/types/restaurant";
 
-// key value 반대로 바꿔야하나...ㅋㅋ 왜이렇게만들었지
 export const KIND_OF_FOOD = {
   한식: "korean",
   중식: "chinese",

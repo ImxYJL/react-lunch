@@ -78,7 +78,7 @@ const AddRestaurantModal = ({ closeModal }: AddRestaurantModalProps) => {
                 { id: "15", value: "15분" },
               ]}
               handleItemClick={(value: string) => setDistanceInput(value)}
-              defaultItem="선택해주세요"
+              guideText="선택해주세요"
               ariaLabel="거리 선택"
             />
           </S.FormSection>
