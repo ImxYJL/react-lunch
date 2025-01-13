@@ -2,10 +2,10 @@ import Portal from "../common/Portal";
 import ModalBackground from "../common/ModalBackground";
 import * as S from "./styles.ts";
 import {
-  KoreanRestaurantCategory,
+  KoreanRestaurantCategorySelector,
   RestaurantItemType,
 } from "../types/restaurant.ts";
-import { RESTAURANT_CATEGORY_FILTER } from "../../constants/restaurant.ts";
+import { KIND_OF_FOOD } from "../../constants/restaurant.ts";
 import { RESTAURANT_CATEGORY_IMAGES } from "../../constants/img.ts";
 
 import { useQueryClient } from "@tanstack/react-query";
@@ -31,8 +31,8 @@ const RestaurantDetailModal = ({
   const { mutate: deleteRestaurant } = useDeleteRestaurant();
   const { mutate: patchIsFavorite } = usePatchIsFavorite();
 
-  const getLogoImg = (category: KoreanRestaurantCategory) => {
-    const engCategory = RESTAURANT_CATEGORY_FILTER[category];
+  const getLogoImg = (category: KoreanRestaurantCategorySelector) => {
+    const engCategory = KIND_OF_FOOD[category];
 
     return RESTAURANT_CATEGORY_IMAGES[engCategory];
   };

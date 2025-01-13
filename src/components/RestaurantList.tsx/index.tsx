@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import RestaurantItem from "../RestaurantItem";
 import { SortType } from "../SortTypeDropdown";

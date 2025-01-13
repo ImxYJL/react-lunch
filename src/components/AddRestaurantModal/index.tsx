@@ -3,9 +3,9 @@ import ModalBackground from "../common/ModalBackground";
 import * as S from "./styles";
 import Dropdown from "../common/Dropdown";
 import { useState } from "react";
-import { RESTAURANT_CATEGORY_DROPDOWN_ITEMS } from "../../constants/restaurant";
+import { FOOD_CATEGORY_SELECT_DROPDOWN_ITEM } from "../../constants/restaurant";
 import {
-  KoreanRestaurantCategory,
+  KoreanRestaurantCategorySelector,
   RestaurantItemType,
 } from "../types/restaurant";
 import usePostRestaurant from "../../hooks/usePostRestaurant";
@@ -15,7 +15,8 @@ interface AddRestaurantModalProps {
 }
 
 const AddRestaurantModal = ({ closeModal }: AddRestaurantModalProps) => {
-  const [foodCategory, setFoodCategory] = useState<KoreanRestaurantCategory>();
+  const [foodCategory, setFoodCategory] =
+    useState<KoreanRestaurantCategorySelector>();
   const [nameInput, setNameInput] = useState("");
   const [distanceInput, setDistanceInput] = useState("");
   const [descriptionInput, setDescriptionInput] = useState("");
@@ -51,8 +52,8 @@ const AddRestaurantModal = ({ closeModal }: AddRestaurantModalProps) => {
             <Dropdown
               name="restaurant-category"
               id="restaurant-select"
-              dropdownItemList={RESTAURANT_CATEGORY_DROPDOWN_ITEMS}
-              handleItemClick={(value: KoreanRestaurantCategory) =>
+              dropdownItemList={FOOD_CATEGORY_SELECT_DROPDOWN_ITEM}
+              handleItemClick={(value: KoreanRestaurantCategorySelector) =>
                 setFoodCategory(value)
               }
               defaultItem="선택해주세요"

@@ -3,11 +3,11 @@ import * as S from "./styles";
 import emptyStarImg from "../../assets/star-empty.png";
 import filledStarImg from "../../assets/star-filled.png";
 
-import { RESTAURANT_CATEGORY_FILTER } from "../../constants/restaurant";
+import { KIND_OF_FOOD } from "../../constants/restaurant";
 import { RESTAURANT_CATEGORY_IMAGES } from "../../constants/img";
 import {
   RestaurantItemType,
-  KoreanRestaurantCategory,
+  KoreanRestaurantCategorySelector,
 } from "../types/restaurant";
 import usePatchIsFavorite from "../../hooks/usePatchIsFavorite";
 
@@ -21,8 +21,8 @@ const RestaurantItem = ({
   isFavorite,
   description,
 }: RestaurantItemProps) => {
-  const getLogoImg = (category: KoreanRestaurantCategory) => {
-    const engCategory = RESTAURANT_CATEGORY_FILTER[category];
+  const getLogoImg = (category: KoreanRestaurantCategorySelector) => {
+    const engCategory = KIND_OF_FOOD[category];
 
     return RESTAURANT_CATEGORY_IMAGES[engCategory];
   };
@@ -42,7 +42,7 @@ const RestaurantItem = ({
     <S.RestaurantItem id={id} data-id={id}>
       <S.RestaurantLogoSection>
         <img
-          src={getLogoImg(category as KoreanRestaurantCategory)} // TODO: as 제거
+          src={getLogoImg(category as KoreanRestaurantCategorySelector)} // TODO: as 제거
           alt={category}
         />
       </S.RestaurantLogoSection>
