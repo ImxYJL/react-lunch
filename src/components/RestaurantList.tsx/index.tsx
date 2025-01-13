@@ -33,7 +33,7 @@ const RestaurantList = ({
     const listItem = (event.target as HTMLElement).closest("li");
     if (!listItem) return;
 
-    // dataset에서 id를 추출하여 클릭된 아이템을 식별
+    // dataset에서 id를 추출해 클릭한 아이템 식별
     const id = listItem.dataset.id;
     const selectedItem = restaurantList?.find((item) => item.id === id);
 
@@ -44,16 +44,17 @@ const RestaurantList = ({
   };
 
   const filteredList = restaurantList
-    ?.filter((item) => (isFavoriteTab ? item.isFavorite : true)) // 즐겨찾기
+    ?.filter((item) => (isFavoriteTab ? item.isFavorite : true)) // 즐겨찾기 탭인지 검사
     .filter(
       (item) =>
         selectedCategory === "전체" || item.category === selectedCategory
     ) // 카테고리 필터
     .sort((a, b) => {
       if (selectedSortType === "거리순") {
-        // TODO: distance 데이터는 숫자/혹은 숫자 문자열만 받도록 수정하기
-        const aDistance = Number(a.distance.replace(/\D/g, ""));
-        const bDistance = Number(b.distance.replace(/\D/g, ""));
+        const NON_DIGIT_REGEX = /\D/g;
+        // distance 정보에서 숫자만 추출
+        const aDistance = Number(a.distance.replace(NON_DIGIT_REGEX, ""));
+        const bDistance = Number(b.distance.replace(NON_DIGIT_REGEX, ""));
 
         return aDistance - bDistance;
       }
