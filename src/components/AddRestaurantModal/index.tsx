@@ -56,7 +56,7 @@ const AddRestaurantModal = ({ closeModal }: AddRestaurantModalProps) => {
               handleItemClick={(value: KoreanRestaurantCategorySelector) =>
                 setFoodCategory(value)
               }
-              defaultItem="선택해주세요"
+              guideText="선택해주세요"
               ariaLabel="음식 종류 선택"
             />
           </S.FormSection>
