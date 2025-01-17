@@ -29,7 +29,7 @@ const AddRestaurantModal = ({ closeModal }: AddRestaurantModalProps) => {
 
     if (newRestaurant) {
       mutate(newRestaurant, {
-        onSuccess: () => closeModal(),
+        onSuccess: closeModal,
       });
     }
   };
