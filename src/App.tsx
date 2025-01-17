@@ -8,15 +8,17 @@ import { SortType } from "./components/SortTypeDropdown/index.tsx";
 import { KoreanRestaurantCategoryFilter } from "./components/types/restaurant.ts";
 
 function App() {
-  const [isFavoriteTab, setIsFavoriteTab] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const [selectedCategory, setSelectedCategory] =
     useState<KoreanRestaurantCategoryFilter>("전체");
   const [selectedSortType, setSelectedSortType] = useState<SortType>("이름순");
 
-  const handleTabClick = () => {
-    setIsFavoriteTab(!isFavoriteTab);
+  const handleTabClick = (idx: number) => {
+    setTabIndex(idx);
   };
+
+  const isFavoriteTab = tabIndex !== 0;
 
   return (
     <div
@@ -28,10 +30,7 @@ function App() {
     >
       <Header />
       <main>
-        <TabSection
-          isFavoriteTab={isFavoriteTab}
-          handleTabClick={handleTabClick}
-        />
+        <TabSection tabIndex={tabIndex} handleTabClick={handleTabClick} />
         <FilterSection
           setSelectedCategory={setSelectedCategory}
           setSelectedSortType={setSelectedSortType}
