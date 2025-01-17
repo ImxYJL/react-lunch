@@ -26,7 +26,7 @@ export const ModalTitle = styled.h1`
   font-weight: bold;
 `;
 
-export const FormSection = styled.div`
+export const FormSection = styled.form`
   display: flex;
   flex-direction: column;
   width: 60%;
