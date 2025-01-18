@@ -27,9 +27,8 @@ const RestaurantDetailModal = ({
 }: RestaurantDetailModalProps) => {
   const [isFavorite, setIsFavorite] = useState(restaurant?.isFavorite || false);
 
-  const queryClient = useQueryClient();
   const { mutate: deleteRestaurant } = useDeleteRestaurant();
-  const { mutate: patchIsFavorite } = usePatchIsFavorite();
+  const { mutate: patchIsFavorite, isPending } = usePatchIsFavorite();
 
   const getLogoImg = (category: KoreanRestaurantCategorySelector) => {
     const engCategory = KIND_OF_FOOD[category];
@@ -41,31 +40,15 @@ const RestaurantDetailModal = ({
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.stopPropagation();
+    if(isPending) return;
 
     if (restaurant) {
       const newIsFavorite = !isFavorite;
       setIsFavorite(newIsFavorite);
-
       patchIsFavorite(
         { id: restaurant.id, isFavorite: newIsFavorite },
         {
-          onSuccess: () => {
-            queryClient.setQueryData(
-              ["restaurantList"],
-              (oldData: RestaurantItemType[] | undefined) => {
-                if (!oldData) return [];
-
-                return oldData.map((item) =>
-                  item.id === restaurant.id
-                    ? { ...item, isFavorite: newIsFavorite }
-                    : item
-                );
-              }
-            );
-          },
-          onError: () => {
-            setIsFavorite(restaurant.isFavorite);
-          },
+          onError: () => setIsFavorite(restaurant.isFavorite),
         }
       );
     }
@@ -74,7 +57,7 @@ const RestaurantDetailModal = ({
   const handleItemDelete = (id: string) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       deleteRestaurant(id, {
-        onSuccess: () => closeModal(),
+        onSuccess: closeModal,
       });
     }
   };
