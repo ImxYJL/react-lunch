@@ -5,9 +5,9 @@ import {
 } from "../components/types/restaurant";
 
 interface RequiredField {
-  foodCategory: KoreanRestaurantCategorySelector;
+  foodCategory: KoreanRestaurantCategorySelector | null;
   name: string;
-  distance: string;
+  distance: string | null;
 }
 
 interface OptionalField {
@@ -19,10 +19,10 @@ type RestaurantForm = Required<RequiredField> & Partial<OptionalField>;
 
 const useAddRestaurantForm = () => {
   const [formInput, setFormInput] = useState<RestaurantForm>({
-    foodCategory: "기타",
+    foodCategory: null,
     name: "",
     description: "",
-    distance: "",
+    distance: null,
     url: "",
   });
 
@@ -33,13 +33,15 @@ const useAddRestaurantForm = () => {
     }));
   };
 
-  const checkIsEssentialInputExist = (): boolean => {
+  const checkIsEssentialInputExist = (
+    formInput: RestaurantForm
+  ): formInput is Required<RequiredField> => {
     const { foodCategory, name, distance } = formInput;
     return !!(foodCategory && name && distance);
   };
 
   const createValidRestaurantItem = () => {
-    if (!checkIsEssentialInputExist()) {
+    if (!checkIsEssentialInputExist(formInput)) {
       alert("필수 입력값을 모두 입력해주세요.");
       return;
     }
@@ -52,7 +54,7 @@ const useAddRestaurantForm = () => {
       distance: formattedDistance,
       description: formInput.description || "",
       url: formInput.url || "",
-      category: formInput.foodCategory,
+      category: formInput.foodCategory!,
       isFavorite: false,
     };
 
