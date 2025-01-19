@@ -76,12 +76,7 @@ const RestaurantDetailModal = ({
             }}
           >
             <S.RestaurantLogoSection>
-              <img
-                src={getLogoImg(
-                  restaurant.category as KoreanRestaurantCategorySelector
-                )} // TODO: as 제거
-                alt=""
-              />
+              <img src={getLogoImg(restaurant.category)} alt="" />
             </S.RestaurantLogoSection>
             <S.FavoriteButton
               type="button"

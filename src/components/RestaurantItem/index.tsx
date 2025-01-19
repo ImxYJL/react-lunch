@@ -39,10 +39,7 @@ const RestaurantItem = ({
   return (
     <S.RestaurantItem id={id}>
       <S.RestaurantLogoSection>
-        <img
-          src={getLogoImg(category as KoreanRestaurantCategorySelector)} // TODO: as 제거
-          alt={category}
-        />
+        <img src={getLogoImg(category)} alt={category} />
       </S.RestaurantLogoSection>
       <S.RestaurantInfoSection>
         <div
