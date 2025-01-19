@@ -9,7 +9,7 @@ interface SortTypeDropdownProps {
 
 const SortTypeDropdown = ({ setSelectedSortType }: SortTypeDropdownProps) => {
   const dropdownItems: DropdownItem<SortType>[] = SORT_TYPE.map((type) => ({
-    id: type,
+    id: `sort-${type}`,
     value: type,
   }));
 

@@ -39,7 +39,7 @@ const Dropdown = <T extends string>({
         </option>
       )}
       {dropdownItemList.map((item) => (
-        <S.DropdownItem key={item.id} value={item.value}>
+        <S.DropdownItem id={item.id} key={item.id} value={item.value}>
           {item.value}
         </S.DropdownItem>
       ))}
