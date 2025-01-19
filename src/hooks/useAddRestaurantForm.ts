@@ -5,7 +5,7 @@ import {
 } from "../components/types/restaurant";
 
 interface RequiredField {
-  foodCategory: KoreanRestaurantCategorySelector | "";
+  foodCategory: KoreanRestaurantCategorySelector;
   name: string;
   distance: string;
 }
