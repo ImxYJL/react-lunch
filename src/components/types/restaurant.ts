@@ -7,7 +7,7 @@ export interface RestaurantItemType {
   id: string;
   name: string;
   distance: string; // TODO: number로 변경
-  category: string;
+  category: KoreanRestaurantCategorySelector;
   isFavorite: boolean;
   description?: string;
   url?: string;
