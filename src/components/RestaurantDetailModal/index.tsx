@@ -8,7 +8,6 @@ import {
 import { KIND_OF_FOOD } from "../../constants/restaurant.ts";
 import { RESTAURANT_CATEGORY_IMAGES } from "../../constants/img.ts";
 
-import { useQueryClient } from "@tanstack/react-query";
 import emptyStarImg from "../../assets/star-empty.png";
 import filledStarImg from "../../assets/star-filled.png";
 
@@ -40,7 +39,7 @@ const RestaurantDetailModal = ({
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.stopPropagation();
-    if(isPending) return;
+    if (isPending) return;
 
     if (restaurant) {
       const newIsFavorite = !isFavorite;
