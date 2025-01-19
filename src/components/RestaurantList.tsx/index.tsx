@@ -33,8 +33,7 @@ const RestaurantList = ({
     const listItem = (event.target as HTMLElement).closest("li");
     if (!listItem) return;
 
-    // dataset에서 id를 추출해 클릭한 아이템 식별
-    const id = listItem.dataset.id;
+    const id = listItem.id; 
     const selectedItem = restaurantList?.find((item) => item.id === id);
 
     // 모달 열기

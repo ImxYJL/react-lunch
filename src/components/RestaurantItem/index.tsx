@@ -37,7 +37,7 @@ const RestaurantItem = ({
   };
 
   return (
-    <S.RestaurantItem id={id} data-id={id}>
+    <S.RestaurantItem id={id}>
       <S.RestaurantLogoSection>
         <img
           src={getLogoImg(category as KoreanRestaurantCategorySelector)} // TODO: as 제거
