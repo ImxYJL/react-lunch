@@ -79,7 +79,7 @@ const RestaurantList = ({
       ))}
       {selectedRestaurant && (
         <RestaurantDetailModal
-          restaurant={selectedRestaurant}
+          restaurantId={selectedRestaurant.id}
           closeModal={closeModal}
         />
       )}

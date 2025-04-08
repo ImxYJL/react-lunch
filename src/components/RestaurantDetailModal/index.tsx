@@ -3,7 +3,7 @@ import ModalBackground from "../common/ModalBackground";
 import * as S from "./styles.ts";
 import {
   KoreanRestaurantCategorySelector,
-  RestaurantItemType,
+  RestaurantListResponse,
 } from "../types/restaurant.ts";
 import { KIND_OF_FOOD } from "../../constants/restaurant.ts";
 import { RESTAURANT_CATEGORY_IMAGES } from "../../constants/img.ts";
@@ -13,18 +13,24 @@ import filledStarImg from "../../assets/star-filled.png";
 
 import useDeleteRestaurant from "../../hooks/useDeleteRestaurant.ts";
 import usePatchIsFavorite from "../../hooks/usePatchIsFavorite.ts";
-import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface RestaurantDetailModalProps {
-  restaurant: RestaurantItemType | null;
+  restaurantId: string | null;
   closeModal: () => void;
 }
 
 const RestaurantDetailModal = ({
-  restaurant,
+  restaurantId,
   closeModal,
 }: RestaurantDetailModalProps) => {
-  const [isFavorite, setIsFavorite] = useState(restaurant?.isFavorite || false);
+  const queryClient = useQueryClient();
+  const restaurantList = queryClient.getQueryData<RestaurantListResponse>([
+    "restaurantList",
+  ]);
+  const restaurant = restaurantList?.find(
+    (restaurant) => restaurant.id === restaurantId
+  );
 
   const { mutate: deleteRestaurant } = useDeleteRestaurant();
   const { mutate: patchIsFavorite, isPending } = usePatchIsFavorite();
@@ -42,14 +48,8 @@ const RestaurantDetailModal = ({
     if (isPending) return;
 
     if (restaurant) {
-      const newIsFavorite = !isFavorite;
-      setIsFavorite(newIsFavorite);
-      patchIsFavorite(
-        { id: restaurant.id, isFavorite: newIsFavorite },
-        {
-          onError: () => setIsFavorite(restaurant.isFavorite),
-        }
-      );
+      const newFavorite = !restaurant.isFavorite;
+      patchIsFavorite({ id: restaurant.id, isFavorite: newFavorite }, {});
     }
   };
 
@@ -83,7 +83,10 @@ const RestaurantDetailModal = ({
               aria-label="즐겨찾기 버튼"
               onClick={handleFavoriteButtonToggle}
             >
-              <img src={isFavorite ? filledStarImg : emptyStarImg} alt="" />
+              <img
+                src={restaurant.isFavorite ? filledStarImg : emptyStarImg}
+                alt=""
+              />
             </S.FavoriteButton>
           </div>
           <S.Name>{restaurant.name}</S.Name>
